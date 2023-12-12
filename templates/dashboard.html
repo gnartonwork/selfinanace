@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Welcome, {{ username }}!</h2>
+        <h3>Transaction History</h3>
+        <ul>
+            {% for transaction in transactions %}
+                <li>{{ transaction.transaction_type }}: ${{ transaction.amount }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
