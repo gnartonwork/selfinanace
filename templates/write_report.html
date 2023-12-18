@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Write Report</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <div class="container">
         <h2>Hello, {{ username }}!</h2>
-        <p>Write your financial report here.</p>
+        <form method="post" action="{{ url_for('write_report') }}">
+            <!-- Add form fields for report generation here -->
+
+            <button type="submit">Generate Report</button>
+        </form>
     </div>
-</body>
-</html>
+{% endblock %}

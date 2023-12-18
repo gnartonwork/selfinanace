@@ -1,23 +1,58 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+/* Reset some default styles */
+body, h1, h2, h3, ul, li, p {
     margin: 0;
     padding: 0;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
 .container {
-    max-width: 600px;
+    max-width: 800px; /* Adjusted max-width for larger container */
     margin: 50px auto;
     background-color: #fff;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Increased border-radius for a softer look */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Increased box shadow for depth */
+}
+
+h2, h3 {
+    color: #333;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 8px; /* Increased margin for better separation */
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px; /* Adjusted padding for a larger button */
+    text-decoration: none;
+    color: #fff;
+    border-radius: 8px; /* Increased border-radius for a rounder button */
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    border: 1px solid #3498db;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px; /* Increased gap for better form element spacing */
 }
 
 label {
@@ -25,10 +60,10 @@ label {
 }
 
 input, button {
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-top: 5px;
+    border-radius: 8px;
+    margin-top: 8px; /* Increased margin-top for better spacing */
 }
 
 button {
@@ -41,28 +76,10 @@ button:hover {
     background-color: #45a049;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    margin-bottom: 5px;
-}
-
-h2, h3 {
-    color: #333;
-}
-
 .alert {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
+    padding: 12px;
+    margin-bottom: 15px; /* Increased margin-bottom for better spacing */
+    border-radius: 8px;
 }
 
 .alert-error {

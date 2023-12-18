@@ -9,5 +9,8 @@
                 <li>{{ transaction.transaction_type }}: ${{ transaction.amount }}</li>
             {% endfor %}
         </ul>
+        <a href="{{ url_for('manage_account') }}" class="btn btn-primary">Manage Account</a>
+        <a href="{{ url_for('manage_finance') }}" class="btn btn-primary">Manage Finance</a>
+        <a href="{{ url_for('write_report') }}" class="btn btn-primary">Write Report</a>
     </div>
 {% endblock %}

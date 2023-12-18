@@ -2,12 +2,12 @@ from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from datetime import datetime
+from datetime import datetime, date
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///finance.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = '1'  # Use a secure secret key
+app.config['SECRET_KEY'] = '1' 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
@@ -40,7 +40,7 @@ class Transaction(db.Model):
 def is_logged_in():
     return 'username' in session
 
-# Bổ sung một decorator để kiểm tra đăng nhập trước khi truy cập các trang sau
+# Bổ sung decorator để kiểm tra đăng nhập trước khi truy cập các trang sau
 def login_required_decorator(route_function):
     @wraps(route_function)
     def wrapper(*args, **kwargs):
@@ -73,7 +73,6 @@ def index():
 @app.route('/dashboard')
 @login_required_decorator
 def dashboard():
-    # Add logic for your dashboard here
     return render_template('dashboard.html', username=session['username'])
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -94,27 +93,70 @@ def register():
 def manage_account():
     return render_template('manage_account.html', username=session['username'])
 
-@app.route('/manage_finance')
+@app.route('/manage_finance', methods=['GET', 'POST'])
 @login_required_decorator
 def manage_finance():
-    return render_template('manage_finance.html', username=session['username'])
+    net_profit = 0  # Default value or calculate it based on your logic
 
-@app.route('/write_report')
+    if request.method == 'POST':
+        # Handle form submission and calculate net_profit here
+        income = float(request.form.get('income', 0))
+        interest = float(request.form.get('interest', 0))
+        loss = float(request.form.get('loss', 0))
+        loaner = float(request.form.get('loaner', 0))
+
+        # Check if transaction_date is provided in the form
+        transaction_date_str = request.form.get('transaction_date')
+        if transaction_date_str:
+            transaction_date = datetime.strptime(transaction_date_str, '%Y-%m-%d')
+        else:
+            # Handle the case where transaction_date is not provided
+            transaction_date = datetime.utcnow()
+
+        net_profit = income + interest - loss - loaner
+
+        # Save data to the database
+        transaction = Transaction(
+            user_id=User.query.filter_by(username=session['username']).first().id,
+            transaction_type='financial_data',
+            amount=net_profit,
+            transaction_date=transaction_date
+        )
+        db.session.add(transaction)
+        db.session.commit()
+
+    return render_template('manage_finance.html', username=session.get('username'), net_profit=net_profit)
+
+@app.route('/write_report', methods=['GET', 'POST'])
 @login_required_decorator
 def write_report():
-    return render_template('write_report.html', username=session['username'])
+    daily_net_profits = []
+    average_monthly_net_profit = 0
+
+    if request.method == 'POST':
+        # Retrieve financial data from the database
+        user_id = User.query.filter_by(username=session['username']).first().id
+        financial_data = Transaction.query.filter_by(user_id=user_id, transaction_type='financial_data').all()
+
+        # Perform required calculations for daily and monthly reports
+        daily_net_profits = [data.amount for data in financial_data if data.transaction_date.date() == date.today()]
+        monthly_net_profits = [data.amount for data in financial_data if data.transaction_date.month == date.today().month]
+
+        # Calculate average monthly net profit
+        average_monthly_net_profit = sum(monthly_net_profits) / len(monthly_net_profits) if monthly_net_profits else 0
+
+        flash('Report generated successfully', 'success')
+
+    return render_template('write_report.html', username=session['username'],
+                           daily_net_profits=daily_net_profits,
+                           average_monthly_net_profit=average_monthly_net_profit)
+
+
 
 @app.route('/maintenance')
 @login_required_decorator
 def maintenance():
     return render_template('maintenance.html', username=session['username'])
-
-@app.route('/net_profit')
-@login_required_decorator
-def net_profit():
-    return redirect(url_for('calculate_net_profit'))
-
-# ... (các route khác)
 
 if __name__ == '__main__':
     app.run(debug=True)
