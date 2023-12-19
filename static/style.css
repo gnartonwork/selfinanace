@@ -6,16 +6,22 @@ body, h1, h2, h3, ul, li, p {
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: rgba(200,238,208,0.40);
 }
 
 .container {
-    max-width: 800px; /* Adjusted max-width for larger container */
-    margin: 50px auto;
+    width: 600px; /* Adjusted max-width for larger container */
+    margin-top: 0px;
+    margin-bottom:150px;
+    margin-left:140px;
     background-color: #fff;
     padding: 20px;
     border-radius: 10px; /* Increased border-radius for a softer look */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Increased box shadow for depth */
+    grid-column: 3/6;
+    grid-row: 1/2;
+    align-self: end;
+
 }
 
 h2, h3 {
@@ -57,6 +63,7 @@ form {
 
 label {
     font-weight: bold;
+    font-size: larger;
 }
 
 input, button {
@@ -67,13 +74,13 @@ input, button {
 }
 
 button {
-    background-color: #4caf50;
+    background-color: #ABD6A0;
     color: white;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #FFE290;
 }
 
 .alert {
@@ -85,4 +92,37 @@ button:hover {
 .alert-error {
     background-color: #f8d7da;
     color: #721c24;
+}
+.image-wrapper{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    place-items: center;
+    grid-template-rows: auto auto; /* Chiều cao tự động cho hàng */
+    
+    align-items: center; /* Canh giữa chiều dọc */
+}
+.rectangle{
+    overflow: hidden;
+    grid-column: 2/3;
+    grid-row: 1;
+    object-fit: cover;
+    
+}
+.loginpart{
+    color: #000;
+    text-align: justify;
+    font-family: Tahoma;
+    font-size: 40px;
+    font-weight: 700;
+    width:75%;
+    grid-column: 4/5;
+    grid-row: 1;
+    align-self: start;
+    margin-top:300px;
+    margin: left 510px;
+    padding-left: 360px;
+    
+}
+button[type="submit"]{
+    font-size: 20px;
 }
