@@ -75,19 +75,6 @@ def index():
 def dashboard():
     return render_template('dashboard.html', username=session['username'])
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-        new_user = User(username=username, password=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
-        flash('Registration successful. Please log in', 'success')
-        return redirect(url_for('login'))
-    return render_template('register.html')
-
 @app.route('/manage_account')
 @login_required_decorator
 def manage_account():
