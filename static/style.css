@@ -14,8 +14,8 @@ body {
     height:150px;
     background-color: #fff;
     padding: 20px;
-    border-radius: 10px; /* Increased border-radius for a softer look */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Increased box shadow for depth */
+    border-radius: 15px; /* Increased border-radius for a softer look */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05); /* Increased box shadow for depth */
     position:absolute;
     top: 50%;
     left: 50%;
@@ -29,7 +29,7 @@ body {
     background-color: #fff;
     padding: 20px;
     border-radius: 15px; /* Increased border-radius for a softer look */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Increased box shadow for depth */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05); /* Increased box shadow for depth */
     grid-column: 3/6;
     grid-row: 1/2;
     align-self: end;
@@ -261,7 +261,7 @@ h4{
     height: auto;
     margin-right:160px;
 }
-h2.settingaccount,p.settingaccount{
+h2.settingaccount,p.settingaccount,h2.report,button.report{
     margin-top:30px;
     
     
